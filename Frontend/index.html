@@ -4,45 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konektya</title>
-    <meta name="description" content="Konektya - Reliable health information and healthcare services in Kenya.">
-    <link rel="icon" type="image/svg+xml" href="Logo for Konektya.png">
-    <link rel=" stylesheet" href="style.css">
+    <meta name="description" content="Konektya helps people in Kenya find reliable health information, healthcare facilities, services and emergency contacts.">
+    <link rel="icon" type="image/svg+xml" href="static/Logo.png">
+    <link rel=" stylesheet" href="static/style.css">
 </head>
-<body>
+<body class="page-home">
     <a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- Safety Notice on every page-->
-    <div class="safety-bar" role="note">Konektya give health information and direction to quality healthcare. It does not diagnose or give prescriptions.
-        <strong>Emergency? call <a href="tel:999">999</a> or <a href="tel:112">112 for Ambulance.</a></strong>
+    <!-- Emergency bar on each page -->
+    <div class="sos-bar" role="region" aria-label="Emergency numbers">
+        <div class="wrap sos-inner">
+            <span>In an emergency, call</span>
+            <a class="sos-num" href="tel:999">999</a>
+            <span>or</span>
+            <a class="sos-num" href="tel:112">112</a>
+            <a class="sos-more" href="#">All emergency contacts</a>
+        </div>
     </div>
     
-    <!-- Header with the Logo and main navigation -->
+    <!-- Header with the Logo, Menu button, System button and main navigation -->
     <header class="site-header">
-        <a class="brand" href="#">
-            <img src="Logo for Konektya.png" alt="" width="38" height="44">
-            <span class="brand-name">Konektya</span>
-             <span class="brand-tagline">Find Healthcare. Live Healthier.</span>
-        </a>
-        <nav class="main - nav" aria-label="Main navigation">
-            <a href="#" aria-current="page">Home</a>
-            <a href="#">Health information</a>
-            <a href="#">Services</a>
-            <a href="#">Facilities</a>
-            <a href="#">Help</a>
-            <a class="nav-emergency" href="#">Emergency</a>
-        </nav> 
+        <div class="wrap header-inner"></div>
+            <a class="wordmark" href="#">
+            <img src="static/Logo.png" alt="Konektya - Home" height="52">
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menu</button>
+            <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="#" aria-current="page">Home</a></li>
+                    <li><a href="#">Health information</a></li>
+                    <li><a href="#">Facilities</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Emergency contacts</a></li>
+                    <li><a href="#">Search</a></li>
+                </ul>
+            </nav> 
+            <a class="btn btn-system header-action" href="#">System</a>
+        </div>
     </header>
     <main id="main">
-        <!-- Hero- Purpose of the site and the search bar -->
-        <section class="hero">
-            <h1>Find reliable health information and services in Kenya</h1>
-            <p class="lead">Konektya brings verified and trusted health information, a healthcare facility directory, and emergency contacts all together in one platform. </p>
-            <form class="search-form" role="search" action="#" method="get">
-                <label for="q">Search health information and facilities</label>
-                <input type="search" id="q" name="q" maxlength="100" placeholder="e.g. malaria, antenatal, Nairobi">
-                <button type="submit">Search</button>
-                <button type="button">Clear</button>
-            </form>
+        <!-- Hero- Purpose of the site and the search bar plus urgent help -->
+        <section class="band band-hero" aria-labelledby="hero-h">
+            <div class="wrap hero-grid">
+                <div class="hero">
+                    <p class="eyebrow">Health information and services in Kenya</p>
+                    <h1 id="hero-h">Find health information and care in Kenya.</h1>
+                    <p class="lede">Konektya brings reliable health information, healthcare facilities, services and emergency contacts together in one place. It helps you reach care. It does not diagnose, prescribe or replace health workers.</p>
+                    <form class="search-form search-big" method="get" action="#" role="search" data-search-form novalidate>
+                        <label for="home-q">Search health information and facilities</label>
+                        <div class="search-row">
+                            <input type="search" id="home-q" name="q" maxlength="100"
+                                   placeholder="For example: malaria, Eldoret, dialysis" autocomplete="off" aria-describedby="home-q-hint">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                        <p class="field-hint" id="home-q-hint" data-search-hint aria-live="polite"></p>
+                    </form>
+                </div>
+                <aside class="hero-panel" aria-labelledby="urgent-h">
+                    <h2 id="urgent-h">Need urgent help?</h2>
+                    <p>If someone's life is in danger, call <a href="tel:999">999</a> or <a href="tel:112">112</a> now.</p>
+                    <ul class="panel-contacts">
+                        <li>
+                            <a class="panel-number" href="tel:999" aria-label="Call National emergency line on 999">999</a>
+                            <span class="panel-name">National emergency line</span>
+                        </li>
+                        <li>
+                            <a class="panel-number" href="tel:112" aria-label="Call National emergency line (alternative) on 112">112</a>
+                            <span class="panel-name">National emergency line (alternative)</span>
+                        </li>
+                        <li>
+                            <a class="panel-number" href="tel:1199" aria-label="Call Kenya Red Cross on 1199">1199</a>
+                            <span class="panel-name">Kenya Red Cross</span>
+                        </li>
+                    </ul>
+                    <a class="arrow-link" href="#">All emergency contacts</a>
+                </aside>
+            </div>
         </section>
 
         <!-- Quick links to the mains sections -->
@@ -77,6 +114,6 @@
         <p><a href="#">About &amp; help</a> · <a href="#">Administrator login</a></p>
         <p>&copy; 2026 Konektya. Developed by Moreen Muthoni.</p>
     </footer>
-    <script src="script.js"></script>
+    <script src="static/script.js" defer></script>
 </body>
 </html>
