@@ -91,3 +91,30 @@ main { max-width: 1120px; margin: 0 auto; padding: 28px 16px 56px; }
 .btn-secondary:hover { background: var(--primary-soft); color: var(--primary-dark); }
 
 /* Quick-link cards */
+.quick-links {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.card {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary);
+  border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+  transition: transform .15s;
+}
+.card:hover { transform: translateY(-2px); }
+.card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+.card h3 a { color: var(--navy); text-decoration: none; }
+.card h3 a::after { content: ""; position: absolute; inset: 0; }
+.card h3 a:hover { color: var(--primary); text-decoration: underline; }
+.card p { margin: 0; color: var(--muted); }
+.card.emergency { border-left-color: var(--danger); }
+
+/* Footer styling */
+.site-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 28px var(--gutter); font-size: .95rem; }
+.site-footer img { width: 240px; }
+
+@media (max-width: 600px) {
+  .hero { padding: 24px 18px; }
+  .main-nav { width: 100%; }
+}
