@@ -82,37 +82,134 @@
             </div>
         </section>
 
-        <!-- Quick links to the mains sections -->
-        <h2>Where would you like to start from?</h2>
-        <ul class="quick-links">
-            <li class="card">
-                <h3><a href="#">Health information</a></h3>
-                <p>Read about health topics organised by category, with verified sources.</p>
-            </li>
-            <li class="card">
-                <h3><a href="#">Healthcare services</a></h3>
-                <p>Find which facilities offer the service that you need.</p>
-            </li>
-            <li class="card">
-                <h3><a href="#">Facility directory</a></h3>
-                <p>Look up hospitals, clinics and health centres by county names.</p>
-            </li>
-            <li class="card emergency">
-                <h3><a href="#">Emergency contacts</a></h3>
-                <p>Important contacts to call when you need urgent help.</p>
-            </li>
-        </ul>
+        <!-- Numbers row -->
+          <section class="band band-stats" aria-label="Konektya at a glance">
+            <div class="wrap">
+                <dl class="stats">
+                    <div><dt>Health information pages</dt><dd>6</dd></div>
+                    <div><dt>Healthcare facilities</dt><dd>5</dd></div>
+                    <div><dt>Healthcare services</dt><dd>10</dd></div>
+                    <div><dt>Verified emergency lines</dt><dd>6</dd></div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- The main paths-->
+          <section class="band" aria-labelledby="paths-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="eyebrow">What you can do</p>
+                    <h2 id="paths-h">Everything you need to reach care</h2>
+                </div>
+                <ul class="path-list">
+                    <li>
+                        <a href="#">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0-2 2z"/><path d="M4 20a2 2 0 0 0 2 1h12v-3"/><path d="M8 7h6M8 11h6"/></svg>
+                            <span class="path-title">Health information</span>
+                            <span class="path-desc">Read 6 plain-language pages on common health topics, each with its source.</span>
+                            <span class="path-cta">Browse topics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M12 9v6M9 12h6"/></svg>
+                            <span class="path-title">Healthcare facilities</span>
+                            <span class="path-desc">Browse 5 facilities and see their location, services and contacts.</span>
+                            <span class="path-cta">Find a facility</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg>
+                            <span class="path-title">Healthcare services</span>
+                            <span class="path-desc">Choose a service, such as emergency care or HIV testing, to see which facilities offer it.</span>
+                            <span class="path-cta">Explore services</span>
+                        </a>
+                    </li>
+                    <li class="path-emergency">
+                        <a href="#">
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+                            <span class="path-title">Emergency contacts</span>
+                            <span class="path-desc">Verified numbers for ambulance, police, GBV and child protection helplines.</span>
+                            <span class="path-cta">See all numbers</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Trust bands -->
+         <section class="band band-dark" aria-labelledby="trust-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="eyebrow">Our commitment</p>
+                    <h2 id="trust-h">Information you can trust</h2>
+                    <p>Konektya is built to help you reach care, not to replace it.</p>
+                </div>
+                <ul class="pillars">
+                    <li><h3>Sourced</h3><p>Every health page names the credible source it is based on, such as the World Health Organization.</p></li>
+                    <li><h3>Verified</h3><p>Emergency numbers are checked against official sources and show the date they were verified.</p></li>
+                    <li><h3>Reviewed</h3><p>Facility details and health pages show when they were last reviewed. Unconfirmed details are marked “Not available”.</p></li>
+                    <li><h3>Private</h3><p>You do not need an account to use Konektya, and your searches are never saved.</p></li>
+                </ul>
+                <a class="btn btn-light" href="#">How Konektya works</a>
+            </div>
+        </section>
+
+        <!-- Health Topics -->
+         <section class="band band-muted" aria-labelledby="topics-h">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="eyebrow">Browse</p>
+                    <h2 id="topics-h">Health topics</h2>
+                </div>
+                <ul class="topic-grid">
+                    <li><a href="#"><span class="topic-name">Infectious diseases</span><span class="topic-count">2 pages</span></a></li>
+                    <li><a href="#"><span class="topic-name">Long-term conditions</span><span class="topic-count">1 page</span></a></li>
+                    <li><a href="#"><span class="topic-name">Maternal and child health</span><span class="topic-count">1 page</span></a></li>
+                    <li><a href="#"><span class="topic-name">Mental health</span><span class="topic-count">1 page</span></a></li>
+                    <li><a href="#"><span class="topic-name">Sexual and reproductive health</span><span class="topic-count">1 page</span></a></li>
+                </ul>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer-->
     <footer class="site-footer">
-        <img src="Logo for Konektya.png" alt="Konektya - Find Healthcare. Live Healthier." width="240" height="80">
-        <p><strong>Important:</strong> Konektya provides general health information and service navigation
-      only. It does not diagnose conditions, prescribe medication or replace professional medical advice. 
-        In an emergency, call <a href="tel:999">999</a> or <a href="tel:112">112</a>.
-    </p>
-        <p><a href="#">About &amp; help</a> · <a href="#">Administrator login</a></p>
-        <p>&copy; 2026 Konektya. Developed by Moreen Muthoni.</p>
+        <div class="wrap footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <p class="footer-logo">Konektya</p>
+                    <p>Reliable health information and healthcare services in Kenya, in one place.</p>
+                </div>
+                <nav aria-label="Explore">
+                    <h2 class="footer-h">Explore</h2>
+                    <ul class="footer-links">
+                        <li><a href="#">Health information</a></li>
+                        <li><a href="#">Healthcare facilities</a></li>
+                        <li><a href="#">Healthcare services</a></li>
+                        <li><a href="#">Search</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Help">
+                    <h2 class="footer-h">Help</h2>
+                    <ul class="footer-links">
+                        <li><a href="#">About and help</a></li>
+                        <li><a href="#">Emergency contacts</a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <h2 class="footer-h">In an emergency</h2>
+                    <p class="footer-sos"><a href="tel:999">999</a> <span>or</span> <a href="tel:112">112</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-note"><strong>Konektya does not diagnose conditions, prescribe medicine or replace health workers.</strong>
+                    The information here is general and does not replace advice from a doctor, nurse, clinical officer or pharmacist.</p>
+                <p class="footer-meta">&copy; 2026 Konektya. Developed by Moreen Muthoni.</p>
+            </div>
+        </div>
     </footer>
     <script src="static/script.js" defer></script>
 </body>
