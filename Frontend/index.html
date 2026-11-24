@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konektya</title>
     <meta name="description" content="Konektya helps people in Kenya find reliable health information, healthcare facilities, services and emergency contacts.">
-    <link rel="icon" type="image/svg+xml" href="static/Logo.png">
-    <link rel=" stylesheet" href="static/style.css">
+    <link rel="icon" type="image/png" href="static/Logo.png">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body class="page-home">
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -24,9 +24,10 @@
     
     <!-- Header with the Logo, Menu button, System button and main navigation -->
     <header class="site-header">
-        <div class="wrap header-inner"></div>
+        <div class="wrap header-inner">
             <a class="wordmark" href="#">
-            <img src="static/Logo.png" alt="Konektya - Home" height="52">
+                <img src="static/Logo.png" alt="Konektya - Home" height="52">
+                <span>Konektya</span>
             </a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menu</button>
             <nav id="main-nav" class="main-nav" aria-label="Main navigation">
@@ -42,7 +43,8 @@
             <a class="btn btn-system header-action" href="#">System</a>
         </div>
     </header>
-    <main id="main">
+
+    <main id="main" tabindex="-1">
         <!-- Hero- Purpose of the site and the search bar plus urgent help -->
         <section class="band band-hero" aria-labelledby="hero-h">
             <div class="wrap hero-grid">
