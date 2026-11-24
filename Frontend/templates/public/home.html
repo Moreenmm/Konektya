@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block body_class %}page-home{% endblock %}
+{% block bands %}
+
+<!-- Hero: purpose of the site, the search bar and urgent help -->
+<section class="band band-hero" aria-labelledby="hero-h">
+    <div class="wrap hero-grid">
+        <div class="hero">
+            <p class="eyebrow">Health information and services in Kenya</p>
+            <h1 id="hero-h">Find health information and care in Kenya.</h1>
+            <p class="lede">Konektya brings reliable health information, healthcare facilities, services and emergency contacts together in one place. It helps you reach care. It does not diagnose, prescribe or replace health workers.</p>
+            <form class="search-form search-big" method="get" action="#" role="search" data-search-form novalidate>
+                <label for="home-q">Search health information and facilities</label>
+                <div class="search-row">
+                    <input type="search" id="home-q" name="q" maxlength="100"
+                           placeholder="For example: malaria, Eldoret, dialysis" autocomplete="off" aria-describedby="home-q-hint">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+                <p class="field-hint" id="home-q-hint" data-search-hint aria-live="polite"></p>
+            </form>
+        </div>
+        <aside class="hero-panel" aria-labelledby="urgent-h">
+            <h2 id="urgent-h">Need urgent help?</h2>
+            <p>If someone's life is in danger, call <a href="tel:999">999</a> or <a href="tel:112">112</a> now.</p>
+            <ul class="panel-contacts">
+                <li>
+                    <a class="panel-number" href="tel:999" aria-label="Call National emergency line on 999">999</a>
+                    <span class="panel-name">National emergency line</span>
+                </li>
+                <li>
+                    <a class="panel-number" href="tel:112" aria-label="Call National emergency line (alternative) on 112">112</a>
+                    <span class="panel-name">National emergency line (alternative)</span>
+                </li>
+                <li>
+                    <a class="panel-number" href="tel:1199" aria-label="Call Kenya Red Cross on 1199">1199</a>
+                    <span class="panel-name">Kenya Red Cross</span>
+                </li>
+            </ul>
+            <a class="arrow-link" href="#">All emergency contacts</a>
+        </aside>
+    </div>
+</section>
+
+<!-- Numbers row -->
+<section class="band band-stats" aria-label="Konektya at a glance">
+    <div class="wrap">
+        <dl class="stats">
+            <div><dt>Health information pages</dt><dd>6</dd></div>
+            <div><dt>Healthcare facilities</dt><dd>5</dd></div>
+            <div><dt>Healthcare services</dt><dd>10</dd></div>
+            <div><dt>Verified emergency lines</dt><dd>6</dd></div>
+        </dl>
+    </div>
+</section>
+
+<!-- The four main paths -->
+<section class="band" aria-labelledby="paths-h">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">What you can do</p>
+            <h2 id="paths-h">Everything you need to reach care</h2>
+        </div>
+        <ul class="path-list">
+            <li>
+                <a href="#">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0-2 2z"/><path d="M4 20a2 2 0 0 0 2 1h12v-3"/><path d="M8 7h6M8 11h6"/></svg>
+                    <span class="path-title">Health information</span>
+                    <span class="path-desc">Read 6 plain-language pages on common health topics, each with its source.</span>
+                    <span class="path-cta">Browse topics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M12 9v6M9 12h6"/></svg>
+                    <span class="path-title">Healthcare facilities</span>
+                    <span class="path-desc">Browse 5 facilities and see their location, services and contacts.</span>
+                    <span class="path-cta">Find a facility</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12h4l3-7 4 14 3-7h6"/></svg>
+                    <span class="path-title">Healthcare services</span>
+                    <span class="path-desc">Choose a service, such as emergency care or HIV testing, to see which facilities offer it.</span>
+                    <span class="path-cta">Explore services</span>
+                </a>
+            </li>
+            <li class="path-emergency">
+                <a href="#">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+                    <span class="path-title">Emergency contacts</span>
+                    <span class="path-desc">Verified numbers for ambulance, police, GBV and child protection helplines.</span>
+                    <span class="path-cta">See all numbers</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Trust band -->
+<section class="band band-dark" aria-labelledby="trust-h">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Our commitment</p>
+            <h2 id="trust-h">Information you can trust</h2>
+            <p>Konektya is built to help you reach care, not to replace it.</p>
+        </div>
+        <ul class="pillars">
+            <li><h3>Sourced</h3><p>Every health page names the credible source it is based on, such as the World Health Organization.</p></li>
+            <li><h3>Verified</h3><p>Emergency numbers are checked against official sources and show the date they were verified.</p></li>
+            <li><h3>Reviewed</h3><p>Facility details and health pages show when they were last reviewed. Unconfirmed details are marked “Not available”.</p></li>
+            <li><h3>Private</h3><p>You do not need an account to use Konektya, and your searches are never saved.</p></li>
+        </ul>
+        <a class="btn btn-light" href="#">How Konektya works</a>
+    </div>
+</section>
+
+<!-- Health topics -->
+<section class="band band-muted" aria-labelledby="topics-h">
+    <div class="wrap">
+        <div class="section-head">
+            <p class="eyebrow">Browse</p>
+            <h2 id="topics-h">Health topics</h2>
+        </div>
+        <ul class="topic-grid">
+            <li><a href="#"><span class="topic-name">Infectious diseases</span><span class="topic-count">2 pages</span></a></li>
+            <li><a href="#"><span class="topic-name">Long-term conditions</span><span class="topic-count">1 page</span></a></li>
+            <li><a href="#"><span class="topic-name">Maternal and child health</span><span class="topic-count">1 page</span></a></li>
+            <li><a href="#"><span class="topic-name">Mental health</span><span class="topic-count">1 page</span></a></li>
+            <li><a href="#"><span class="topic-name">Sexual and reproductive health</span><span class="topic-count">1 page</span></a></li>
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
