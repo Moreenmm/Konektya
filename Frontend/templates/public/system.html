@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}System{% endblock %}
+{% block body_class %}page-system{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>System</h1>
+  <p class="lede">Log in to your account or create a new one. You do not need an account to browse Konektya.</p>
+</div>
+
+<div class="auth-grid">
+  <section class="auth-panel" aria-labelledby="login-h">
+    <h2 id="login-h">Log in</h2>
+    {% if login_error %}<p class="notice notice-error" role="alert">{{ login_error }}</p>{% endif %}
+    <form method="post" action="{{ url_for('accounts.login') }}" class="stack-form" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field">
+        <label for="identifier">Username or email</label>
+        <input id="identifier" name="identifier" type="text" value="{{ identifier }}" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+  </section>
+
+  <section class="auth-panel" aria-labelledby="signup-h">
+    <h2 id="signup-h">Create an account</h2>
+    {% if signup_errors %}
+    <div class="error-summary" role="alert" tabindex="-1" data-focus-on-load>
+      <h3>Please fix the following</h3>
+      <ul>{% for e in signup_errors %}<li>{{ e }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    <form method="post" action="{{ url_for('accounts.signup') }}" class="stack-form" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field">
+        <label for="su-username">Username</label>
+        <p class="field-hint" id="su-username-hint">3-40 letters, numbers, dots, dashes or underscores.</p>
+        <input id="su-username" name="username" type="text" value="{{ signup.username or '' }}" autocomplete="username" aria-describedby="su-username-hint" required>
+      </div>
+      <div class="field">
+        <label for="su-email">Email</label>
+        <input id="su-email" name="email" type="email" value="{{ signup.email or '' }}" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="su-password">Password</label>
+        <p class="field-hint" id="su-password-hint">At least 10 characters.</p>
+        <input id="su-password" name="password" type="password" autocomplete="new-password" aria-describedby="su-password-hint" required>
+      </div>
+      <div class="field">
+        <label for="su-confirm">Confirm password</label>
+        <input id="su-confirm" name="confirm_password" type="password" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

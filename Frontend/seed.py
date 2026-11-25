@@ -1,36 +1,14 @@
-""" Test data for Konektya 
-Every record names where it came from. The emergency contacts were checked against the listed sources."""
-import re
+"""Test dataset for Konektya.
+
+Every record names where it came from. Emergency numbers and facility details
+were checked against the sources listed on 24 November 2026. Fields that could
+not be confirmed from an official source are deliberately left empty, so the
+site shows them as "Not available" instead of presenting them as verified
+(FR 4.5). Health information is written in plain language and summarises the
+linked WHO fact sheets; it is general information, not medical advice.
+"""
 
 REVIEWED = "2026-11-24"
-
-CA_PLAN = ("https://www.ca.go.ke/sites/default/files/2026-04/"
-           "Numbering%20Plan%20Kenya%20April%202026.pdf")
-
-# (name, number, purpose, availability, source_name, source_url, display_order)
-EMERGENCY_CONTACTS = [
-    ("National emergency line", "999",
-     "Police, fire and ambulance emergencies anywhere in Kenya. Free to call.",
-     "24 hours", "Communications Authority of Kenya - National Numbering Plan", 
-CA_PLAN, 10),
-    ("National emergency line (alternative)", "112",
-     "Alternative national emergency number for police, fire and ambulance. Free to call.",
-     "24 hours", "Communications Authority of Kenya - National Numbering Plan", 
-CA_PLAN, 20),
-    ("Kenya Red Cross", "1199",
-     "Ambulance and emergency response, and psychosocial support. Toll-free.",
-     "24 hours", "Kenya Red Cross Society - Contact us", "https://www.redcross.or.ke/?p=56", 30),
-    ("National GBV helpline", "1195",
-     "Tele-counselling and referral for survivors of gender-based violence. Toll-free.",
-     "24 hours", "State Department for Gender and Affirmative Action - GBV Prevention and Response",
-     "https://migecah.go.ke/gbv-prevention-and-response", 40),
-    ("Childline Kenya", "116",
-     "Report child abuse or get help for a child at risk. Toll-free.",
-     "24 hours", "UNHCR Kenya - Child Protection Services", "https://help.unhcr.org/kenya/?p=280", 50),
-    ("Counselling hotline", "1190",
-     "General counselling support. Toll-free.",
-     None, "UNHCR Kenya - Gender-Based Violence", "https://help.unhcr.org/kenya/?p=275", 60),
-]
 
 HEALTH_CATEGORIES = [
     ("Infectious diseases", "infectious-diseases",
@@ -189,10 +167,113 @@ HIV testing is offered at many public health facilities, including comprehensive
     },
 ]
 
-def slugify(text):
-    """Turn a title into a web-address name: "Malaria: the basics" -> "malaria-the-basics"."""
-    slug = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
-    return slug[:80] or "item"
+SERVICES = [
+    ("Emergency care", "Accident and emergency departments for urgent illness and injury."),
+    ("HIV testing and care", "HIV testing, treatment and comprehensive care clinics."),
+    ("Surgery", "General and specialised surgical services."),
+    ("Cancer care", "Cancer diagnosis, treatment and palliative care."),
+    ("Eye care", "Eye examinations and eye surgery such as cataract removal."),
+    ("Kidney care", "Kidney treatment including dialysis."),
+    ("Mental health", "Assessment, counselling and treatment for mental health conditions."),
+    ("Nutrition", "Nutrition assessment and advice."),
+    ("Outpatient clinics", "Specialist and general clinics for patients who are not admitted."),
+    ("Sickle cell care", "Care and support for people living with sickle cell disease."),
+]
+
+FACILITIES = [
+    {
+        "name": "Kenyatta National Hospital",
+        "facility_type": "National referral hospital (public)",
+        "county": "Nairobi", "town": "Nairobi",
+        "address": "Hospital Road, Upper Hill, Nairobi",
+        "phone": "020 2726300",
+        "email": None,
+        "website": "https://knh.or.ke/",
+        "summary": "Kenya's oldest and largest public referral and teaching hospital.",
+        "source_name": "Kenyatta National Hospital official website",
+        "source_url": "https://knh.or.ke/",
+        "services": ["Emergency care", "HIV testing and care", "Nutrition", "Outpatient clinics"],
+    },
+    {
+        "name": "Moi Teaching and Referral Hospital",
+        "facility_type": "National referral hospital (public)",
+        "county": "Uasin Gishu", "town": "Eldoret",
+        "address": "Nandi Road, Eldoret",
+        "phone": "053 2033471",
+        "email": None,
+        "website": "https://www.mtrh.go.ke/",
+        "summary": "National teaching and referral hospital serving western Kenya and the region.",
+        "source_name": "Moi Teaching and Referral Hospital official website",
+        "source_url": "https://www.mtrh.go.ke/",
+        "services": ["Surgery", "Cancer care", "Outpatient clinics"],
+    },
+    {
+        "name": "Kenyatta University Teaching, Referral & Research Hospital",
+        "facility_type": "National referral hospital (public)",
+        "county": "Nairobi", "town": "Nairobi",
+        "address": None,
+        "phone": "1558",
+        "email": None,
+        "website": "https://kutrrh.go.ke/",
+        "summary": "Level 6 public national referral hospital with more than 20 specialised clinics. "
+                   "Patients are usually referred by another hospital; the toll-free line 1558 gives referral guidance.",
+        "source_name": "KUTRRH official website - Who we are",
+        "source_url": "https://kutrrh.go.ke/who-we-are/",
+        "services": ["Outpatient clinics"],
+    },
+    {
+        "name": "Jaramogi Oginga Odinga Teaching and Referral Hospital",
+        "facility_type": "National referral hospital (public)",
+        "county": "Kisumu", "town": "Kisumu",
+        "address": None,
+        "phone": None,
+        "email": None,
+        "website": None,
+        "summary": "Level 6 national referral hospital in Kisumu with an accident and emergency unit, "
+                   "dialysis and a sickle cell centre.",
+        "source_name": "County Government of Kisumu - JOOTRH news",
+        "source_url": "https://www.kisumu.go.ke/category/jootrh",
+        "services": ["Emergency care", "Kidney care", "Eye care", "Sickle cell care", "Mental health"],
+    },
+    {
+        "name": "Coast General Teaching and Referral Hospital",
+        "facility_type": "County referral hospital (public)",
+        "county": "Mombasa", "town": "Mombasa",
+        "address": "Tononoka, Mombasa",
+        "phone": None,
+        "email": None,
+        "website": "https://cgtrh.go.ke/",
+        "summary": "Public teaching and referral hospital serving Mombasa and the coast region.",
+        "source_name": "Kenya News Agency - Coast General upgrades adult emergency wing",
+        "source_url": "https://www.kenyanews.go.ke/coast-general-upgrades-adult-emergency-wing/",
+        "services": ["Emergency care", "Surgery"],
+    },
+]
+
+CA_PLAN = ("https://www.ca.go.ke/sites/default/files/2026-04/"
+           "Numbering%20Plan%20Kenya%20April%202026.pdf")
+
+EMERGENCY_CONTACTS = [
+    ("National emergency line", "999",
+     "Police, fire and ambulance emergencies anywhere in Kenya. Free to call.",
+     "24 hours", "Communications Authority of Kenya - National Numbering Plan", CA_PLAN, 10),
+    ("National emergency line (alternative)", "112",
+     "Alternative national emergency number for police, fire and ambulance. Free to call.",
+     "24 hours", "Communications Authority of Kenya - National Numbering Plan", CA_PLAN, 20),
+    ("Kenya Red Cross", "1199",
+     "Ambulance and emergency response, and psychosocial support. Toll-free.",
+     "24 hours", "Kenya Red Cross Society - Contact us", "https://www.redcross.or.ke/?p=56", 30),
+    ("National GBV helpline", "1195",
+     "Tele-counselling and referral for survivors of gender-based violence. Toll-free.",
+     "24 hours", "State Department for Gender and Affirmative Action - GBV Prevention and Response",
+     "https://migecah.go.ke/gbv-prevention-and-response", 40),
+    ("Childline Kenya", "116",
+     "Report child abuse or get help for a child at risk. Toll-free.",
+     "24 hours", "UNHCR Kenya - Child Protection Services", "https://help.unhcr.org/kenya/?p=280", 50),
+    ("Counselling hotline", "1190",
+     "General counselling support. Toll-free.",
+     None, "UNHCR Kenya - Gender-Based Violence", "https://help.unhcr.org/kenya/?p=275", 60),
+]
 
 
 def seed(db):
@@ -202,6 +283,7 @@ def seed(db):
             "INSERT INTO health_categories (name, slug, description) VALUES (?, ?, ?)",
             (name, slug, desc)).lastrowid
 
+    from validation import slugify
     for a in ARTICLES:
         db.execute(
             """INSERT INTO health_articles (category_id, title, slug, summary, body,
@@ -210,9 +292,30 @@ def seed(db):
             (cat_ids[a["category"]], a["title"], slugify(a["title"]), a["summary"],
              a["body"], a["source_name"], a["source_url"], REVIEWED))
 
+    service_ids = {}
+    for name, desc in SERVICES:
+        service_ids[name] = db.execute(
+            "INSERT INTO service_categories (name, description) VALUES (?, ?)",
+            (name, desc)).lastrowid
+
+    for f in FACILITIES:
+        fid = db.execute(
+            """INSERT INTO facilities (name, facility_type, county, town, address, phone,
+               email, website, summary, source_name, source_url, last_reviewed)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (f["name"], f["facility_type"], f["county"], f["town"], f["address"],
+             f["phone"], f["email"], f["website"], f["summary"], f["source_name"],
+             f["source_url"], REVIEWED)).lastrowid
+        db.executemany(
+            "INSERT INTO facility_services (facility_id, service_id) VALUES (?, ?)",
+            [(fid, service_ids[s]) for s in f["services"]])
+
     db.executemany(
         """INSERT INTO emergency_contacts (name, number, purpose, availability,
            source_name, source_url, display_order, verified_on)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
         [c + (REVIEWED,) for c in EMERGENCY_CONTACTS])
+
+    db.execute("INSERT INTO audit_log (admin_username, action, entity_type, entity_label) "
+               "VALUES ('system', 'seed', 'database', 'Loaded test dataset')")
     db.commit()

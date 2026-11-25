@@ -1,2 +1,6 @@
 __pycache__/
 instance/
+*.pyc
+.pytest_cache/
+*.sqlite3
+.venv/

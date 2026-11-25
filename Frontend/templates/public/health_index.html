@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% from "macros.html" import search_form %}
 {% block title %}Health information{% endblock %}
 {% block content %}
 <div class="page-head">
   <h1>Health information</h1>
   <p class="lede">Choose a topic to read general health information. Every page lists the source it is based on.</p>
 </div>
+
+{{ search_form(url_for('public.search'), label='Search health information', scope='health',
+               placeholder='For example: blood pressure', input_id='health-q') }}
 
 {% if categories %}
 <ul class="row-list">

@@ -1,0 +1,63 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Administrator guide{% endblock %}
+{% block admin_content %}
+<h1>Administrator guide</h1>
+<p class="lede">How to keep Konektya's information accurate and up to date.</p>
+
+<div class="guide">
+  <section aria-labelledby="g-signin">
+    <h2 id="g-signin">Signing in and out</h2>
+    <ul>
+      <li>Open the home page, select <strong>System</strong> and log in with your username or email and password.</li>
+      <li>After five failed attempts, login is paused for 15 minutes.</li>
+      <li>Select <strong>Log out</strong> in the grey bar at the top of any page when you finish.</li>
+      <li>New administrators are added on the server with <code>flask create-admin</code>.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="g-health">
+    <h2 id="g-health">Health information</h2>
+    <ol>
+      <li>Go to <a href="{{ url_for('admin.article_form') }}">Add health information</a>. Choose a category and enter a title, summary and the page text.</li>
+      <li>Add the source name and link. A page cannot be published without a source.</li>
+      <li>Save. New pages are saved as drafts and open in a preview.</li>
+      <li>Check the preview, then select <strong>Publish</strong>. You can return a page to draft at any time.</li>
+    </ol>
+    <p>Formatting: leave a blank line between paragraphs, start a line with <code>## </code> for a sub-heading and <code>- </code> for a bullet point.</p>
+  </section>
+
+  <section aria-labelledby="g-fac">
+    <h2 id="g-fac">Facilities and services</h2>
+    <ul>
+      <li>Add or edit facilities under <a href="{{ url_for('admin.facilities') }}">Facilities</a>. Leave a field empty if it cannot be confirmed; the public site shows it as “Not available”.</li>
+      <li>Tick the services each facility offers. Manage the service list under <a href="{{ url_for('admin.services') }}">Services</a>.</li>
+      <li>Record the source and the date you last checked the details.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="g-em">
+    <h2 id="g-em">Emergency contacts</h2>
+    <ul>
+      <li>Only add a number after checking it against an official source.</li>
+      <li>Every contact needs a source and the date it was verified. Use the display order to put the most important numbers first.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="g-del">
+    <h2 id="g-del">Deleting content</h2>
+    <ul>
+      <li>Select <strong>Delete</strong> next to a record and confirm. This cannot be undone.</li>
+      <li>A health category that still contains pages cannot be deleted. Move or delete its pages first.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="g-care">
+    <h2 id="g-care">Records, backups and reviews</h2>
+    <ul>
+      <li>Every login, change, publish, backup and restore is listed in the <a href="{{ url_for('admin.audit') }}">Activity log</a>.</li>
+      <li>Download a backup from <a href="{{ url_for('admin.backup') }}">Backup and restore</a> before large changes, and keep it private.</li>
+      <li>Review health pages, facility details and emergency numbers regularly and update the reviewed dates.</li>
+    </ul>
+  </section>
+</div>
+{% endblock %}

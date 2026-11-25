@@ -1,0 +1,45 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import delete_button, place %}
+{% block title %}Manage facilities{% endblock %}
+{% block admin_content %}
+<div class="title-row">
+  <h1>Facilities</h1>
+  <a class="btn btn-primary" href="{{ url_for('admin.facility_form') }}">Add facility</a>
+</div>
+
+<form method="get" class="search-form" role="search">
+  <label for="aq">Filter facilities</label>
+  <div class="search-row">
+    <input type="search" id="aq" name="q" value="{{ query }}" maxlength="100">
+    <button class="btn btn-quiet" type="submit">Filter</button>
+    {% if query %}<a class="btn btn-quiet" href="{{ url_for('admin.facilities') }}">Clear</a>{% endif %}
+  </div>
+</form>
+
+{% if facilities %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Name</th><th scope="col">Location</th><th scope="col">Services</th><th scope="col">Last reviewed</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+  <tbody>
+  {% for f in facilities %}
+  <tr>
+    <td>{{ f['name'] }}</td>
+    <td>{{ place(f) }}</td>
+    <td>{% if f['service_names'] %}{{ f['service_names'] }}{% else %}<span class="na">None</span>{% endif %}</td>
+    <td>{{ f['last_reviewed'] or '' }}</td>
+    <td class="row-actions">
+      <a href="{{ url_for('public.facility_detail', facility_id=f['id']) }}">View</a>
+      <a href="{{ url_for('admin.facility_form', facility_id=f['id']) }}">Edit</a>
+      {{ delete_button(url_for('admin.facility_delete', facility_id=f['id']), f['name']) }}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% elif query %}
+<p class="empty">No facilities match “{{ query }}”.</p>
+{% else %}
+<p class="empty">No facilities yet. <a href="{{ url_for('admin.facility_form') }}">Add the first facility</a>.</p>
+{% endif %}
+{% endblock %}

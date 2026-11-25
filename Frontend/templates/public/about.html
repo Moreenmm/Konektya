@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}About and help{% endblock %}
+{% block content %}
+<div class="page-head">
+  <p class="eyebrow">About and help</p>
+  <h1>How Konektya works</h1>
+  <p class="lede">Konektya brings reliable health information, healthcare facilities, services and emergency contacts in Kenya together in one place, so you spend less time checking many different sources.</p>
+</div>
+
+<div class="guide">
+  <section aria-labelledby="a-use">
+    <h2 id="a-use">Using Konektya</h2>
+    <ol class="steps">
+      <li><strong>Search.</strong> Type a word such as a condition, town or service into the search box on the <a href="{{ url_for('public.home') }}">home page</a> or the <a href="{{ url_for('public.search') }}">search page</a>. Select a result to read it in full.</li>
+      <li><strong>Read health information.</strong> Open <a href="{{ url_for('public.health_index') }}">Health information</a>, choose a topic, then choose a page. Each page shows its source and when it was last reviewed.</li>
+      <li><strong>Find a facility.</strong> Open <a href="{{ url_for('public.facilities') }}">Facilities</a> and search by name, town, county or service. Select a facility to see its location, services and contact details.</li>
+      <li><strong>Find a service.</strong> Open <a href="{{ url_for('public.services') }}">Services</a> and choose one, such as emergency care or HIV testing, to see which facilities list it.</li>
+      <li><strong>Get help in an emergency.</strong> Call <a href="tel:999">999</a> or <a href="tel:112">112</a>, or open <a href="{{ url_for('public.emergency') }}">Emergency contacts</a> for more verified numbers. On a phone, tap a number to call it.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="a-limits">
+    <h2 id="a-limits">What Konektya does not do</h2>
+    <ul>
+      <li>It does not diagnose conditions, prescribe medicine or give personal medical advice.</li>
+      <li>It does not replace doctors, nurses, clinical officers, pharmacists or other health workers.</li>
+      <li>It does not book appointments or connect to hospital or patient records.</li>
+      <li>It does not provide emergency services. In an emergency, call 999 or 112.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="a-trust">
+    <h2 id="a-trust">Where the information comes from</h2>
+    <ul>
+      <li>Health information is based on credible sources, such as the World Health Organization, and every page names its source.</li>
+      <li>Emergency numbers are checked against official sources before they are published, and the date they were verified is shown.</li>
+      <li>Facility details come from official or government sources. Anything that could not be confirmed is marked “Not available”.</li>
+      <li>Details can change. Call a facility before you travel to confirm opening hours and services.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="a-privacy">
+    <h2 id="a-privacy">Your privacy</h2>
+    <ul>
+      <li>You do not need an account to use Konektya, and searches are not saved.</li>
+      <li>If you choose to create an account, Konektya stores only your username, email address and a protected (hashed) password.</li>
+      <li>Konektya never asks for your medical history.</li>
+    </ul>
+  </section>
+</div>
+
+<div class="not-advice">
+  <h2>General information, not medical advice</h2>
+  <p>If you are unwell or worried about your health, speak to a health worker. If someone's life is in danger, call 999 or 112 now.</p>
+</div>
+{% endblock %}

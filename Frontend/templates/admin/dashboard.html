@@ -1,0 +1,39 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block admin_content %}
+<h1>Dashboard</h1>
+
+<dl class="tally">
+  <div><dt>Published health pages</dt><dd>{{ stats.published }}</dd></div>
+  <div><dt>Drafts waiting for review</dt><dd>{{ stats.drafts }}</dd></div>
+  <div><dt>Facilities</dt><dd>{{ stats.facilities }}</dd></div>
+  <div><dt>Services</dt><dd>{{ stats.services }}</dd></div>
+  <div><dt>Emergency contacts</dt><dd>{{ stats.contacts }}</dd></div>
+  <div><dt>Health categories</dt><dd>{{ stats.categories }}</dd></div>
+</dl>
+
+<h2>Add content</h2>
+<p class="actions">
+  <a class="btn btn-primary" href="{{ url_for('admin.article_form') }}">Add health information</a>
+  <a class="btn btn-quiet" href="{{ url_for('admin.facility_form') }}">Add facility</a>
+  <a class="btn btn-quiet" href="{{ url_for('admin.contact_form') }}">Add emergency contact</a>
+</p>
+
+<h2>Recent activity</h2>
+{% if recent %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">When (UTC)</th><th scope="col">Who</th><th scope="col">Action</th><th scope="col">Record</th></tr></thead>
+  <tbody>
+  {% for e in recent %}
+  <tr><td>{{ e['created_at'] }}</td><td>{{ e['admin_username'] }}</td><td>{{ e['action'] }}</td>
+      <td>{{ e['entity_type']|replace('_', ' ') }}{% if e['entity_label'] %}: {{ e['entity_label'] }}{% endif %}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p><a href="{{ url_for('admin.audit') }}">View full activity log</a></p>
+{% else %}
+<p class="empty">No activity yet.</p>
+{% endif %}
+{% endblock %}

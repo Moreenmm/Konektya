@@ -1,0 +1,75 @@
+{% macro value_or_na(value) -%}
+  {%- if value -%}{{ value }}{%- else -%}<span class="na">Not available</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro search_form(action, query='', label='Search', placeholder='', scope=None, input_id='q', big=False) %}
+<form class="search-form{% if big %} search-big{% endif %}" method="get" action="{{ action }}" role="search" data-search-form novalidate>
+  <label for="{{ input_id }}">{{ label }}</label>
+  <div class="search-row">
+    <input type="search" id="{{ input_id }}" name="q" value="{{ query }}" maxlength="100"
+           placeholder="{{ placeholder }}" autocomplete="off" aria-describedby="{{ input_id }}-hint">
+    {% if scope is not none %}<input type="hidden" name="scope" value="{{ scope }}">{% endif %}
+    <button type="submit" class="btn btn-primary">Search</button>
+    {% if query %}<a class="btn btn-quiet" href="{{ action }}" data-clear-search>Clear search</a>{% endif %}
+  </div>
+  <p class="field-hint" id="{{ input_id }}-hint" data-search-hint aria-live="polite"></p>
+</form>
+{% endmacro %}
+
+{% macro form_errors(errors) %}
+{% if errors %}
+<div class="error-summary" role="alert" tabindex="-1" data-focus-on-load>
+  <h2>Please fix the following before saving</h2>
+  <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro field(name, label, form, type='text', required=False, hint=None, maxlength=None, textarea=False, rows=4) %}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="req">(required)</span>{% else %} <span class="opt">(optional)</span>{% endif %}</label>
+  {% if hint %}<p class="field-hint" id="f-{{ name }}-hint">{{ hint }}</p>{% endif %}
+  {% if textarea %}
+  <textarea id="f-{{ name }}" name="{{ name }}" rows="{{ rows }}" {% if required %}required{% endif %} {% if maxlength %}maxlength="{{ maxlength }}"{% endif %} {% if hint %}aria-describedby="f-{{ name }}-hint"{% endif %}>{{ form.get(name) or '' }}</textarea>
+  {% else %}
+  <input id="f-{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ form.get(name) if form.get(name) is not none else '' }}" {% if required %}required{% endif %} {% if maxlength %}maxlength="{{ maxlength }}"{% endif %} {% if hint %}aria-describedby="f-{{ name }}-hint"{% endif %}>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro delete_button(action, label) %}
+<details class="confirm-delete">
+  <summary class="btn btn-danger-quiet">Delete</summary>
+  <form method="post" action="{{ action }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <p>Delete “{{ label }}”? This cannot be undone.</p>
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+</details>
+{% endmacro %}
+
+{% macro pager(page, pages, endpoint) %}
+{% if pages > 1 %}
+<nav class="pager" aria-label="Pages">
+  {% if page > 1 %}<a href="{{ url_for(endpoint, page=page-1, **kwargs) }}">Previous page</a>{% endif %}
+  <span>Page {{ page }} of {{ pages }}</span>
+  {% if page < pages %}<a href="{{ url_for(endpoint, page=page+1, **kwargs) }}">Next page</a>{% endif %}
+</nav>
+{% endif %}
+{% endmacro %}
+
+{% macro source_line(name, url, reviewed, reviewed_label='Last reviewed') %}
+<p class="source-line">
+  {% if name %}Source:
+    {% if url %}<a href="{{ url }}" rel="noopener noreferrer" target="_blank">{{ name }}<span class="visually-hidden"> (opens in a new tab)</span></a>{% else %}{{ name }}{% endif %}
+  {% else %}<span class="na">Source not available</span>{% endif %}
+  {% if reviewed %}<br>{{ reviewed_label }}: {{ reviewed|nice_date }}{% endif %}
+</p>
+{% endmacro %}
+
+{% macro place(f) -%}
+  {%- set parts = [] -%}
+  {%- if f['town'] %}{% set _ = parts.append(f['town']) %}{% endif -%}
+  {%- if f['county'] %}{% set _ = parts.append(f['county'] ~ ' County') %}{% endif -%}
+  {%- if parts %}{{ parts|join(', ') }}{% else %}<span class="na">Location not available</span>{% endif -%}
+{%- endmacro %}

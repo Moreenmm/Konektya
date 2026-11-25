@@ -1,0 +1,23 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import pager %}
+{% block title %}Activity log{% endblock %}
+{% block admin_content %}
+<h1>Activity log</h1>
+<p>A record of logins and every change to health information, facilities, services, categories and emergency contacts.</p>
+{% if entries %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">When (UTC)</th><th scope="col">Who</th><th scope="col">Action</th><th scope="col">Type</th><th scope="col">Record</th></tr></thead>
+  <tbody>
+  {% for e in entries %}
+  <tr><td>{{ e['created_at'] }}</td><td>{{ e['admin_username'] }}</td><td>{{ e['action'] }}</td>
+      <td>{{ e['entity_type']|replace('_', ' ') }}</td><td>{{ e['entity_label'] or '' }}{% if e['entity_id'] %} (#{{ e['entity_id'] }}){% endif %}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{{ pager(page, pages, 'admin.audit') }}
+{% else %}
+<p class="empty">No activity has been recorded yet.</p>
+{% endif %}
+{% endblock %}

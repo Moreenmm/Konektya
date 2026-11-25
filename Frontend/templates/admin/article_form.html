@@ -1,0 +1,46 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import field, form_errors %}
+{% block title %}{{ 'Edit' if article else 'Add' }} health information{% endblock %}
+{% block admin_content %}
+<h1>{{ 'Edit health information' if article else 'Add health information' }}</h1>
+{{ form_errors(errors) }}
+
+<form method="post" class="stack-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {{ field('title', 'Title', form, required=True, maxlength=150) }}
+
+  <div class="field">
+    <label for="f-category_id">Category <span class="req">(required)</span></label>
+    <select id="f-category_id" name="category_id" required>
+      <option value="">Choose a category</option>
+      {% for c in categories %}
+      <option value="{{ c['id'] }}" {% if form.get('category_id')|string == c['id']|string %}selected{% endif %}>{{ c['name'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {{ field('summary', 'Summary', form, required=True, maxlength=300, textarea=True, rows=2,
+           hint='One or two sentences shown in lists and search results.') }}
+  {{ field('body', 'Content', form, required=True, maxlength=20000, textarea=True, rows=16,
+           hint='Plain text. Leave a blank line between paragraphs. Start a line with "## " for a sub-heading or "- " for a bullet point. Keep general information separate from advice for individuals.') }}
+
+  <fieldset class="fieldset">
+    <legend>Source</legend>
+    <p class="field-hint">Health information must come from a credible source, such as the Ministry of Health or the World Health Organization. A source is required before publishing.</p>
+    {{ field('source_name', 'Source name', form, maxlength=200) }}
+    {{ field('source_url', 'Source link', form, type='url', maxlength=500, hint='Full address starting with https://') }}
+    {{ field('last_reviewed', 'Last reviewed', form, type='date') }}
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Status</legend>
+    <label class="radio"><input type="radio" name="status" value="draft" {% if form.get('status', 'draft') == 'draft' %}checked{% endif %}> Draft: save and preview before publishing</label>
+    <label class="radio"><input type="radio" name="status" value="published" {% if form.get('status') == 'published' %}checked{% endif %}> Published: visible to the public now</label>
+  </fieldset>
+
+  <div class="actions">
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-quiet" href="{{ url_for('admin.articles') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

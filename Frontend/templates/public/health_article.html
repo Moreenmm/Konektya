@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "macros.html" import source_line %}
+{% block title %}{{ article['title'] }}{% endblock %}
+{% block content %}
+{% if preview %}
+<div class="preview-banner" role="region" aria-label="Preview controls">
+  <p><strong>Preview.</strong> This is how the page will look to the public.
+    Current status: <strong>{{ 'Published' if article['status'] == 'published' else 'Draft (not visible to the public)' }}</strong>.</p>
+  <div class="actions">
+    <a class="btn btn-quiet" href="{{ url_for('admin.article_form', article_id=article['id']) }}">Edit</a>
+    <form method="post" action="{{ url_for('admin.article_status', article_id=article['id']) }}" class="inline-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {% if article['status'] == 'draft' %}
+      <input type="hidden" name="status" value="published">
+      <button class="btn btn-primary" type="submit">Publish</button>
+      {% else %}
+      <input type="hidden" name="status" value="draft">
+      <button class="btn btn-quiet" type="submit">Unpublish</button>
+      {% endif %}
+    </form>
+    <a class="btn btn-quiet" href="{{ url_for('admin.articles') }}">Back to health information</a>
+  </div>
+</div>
+{% endif %}
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('public.health_index') }}">Health information</a>
+  <span aria-hidden="true">/</span>
+  <a href="{{ url_for('public.health_category', slug=article['category_slug']) }}">{{ article['category'] }}</a>
+</nav>
+
+<article class="article">
+  <h1>{{ article['title'] }}</h1>
+  <p class="lede">{{ article['summary'] }}</p>
+
+  <aside class="not-advice" aria-label="About this information">
+    <h2>General information, not medical advice</h2>
+    <p>This page explains a health topic in general terms. It cannot tell you what is wrong or what treatment you need. Speak to a health worker about your own situation. If it is an emergency, call <a href="tel:999">999</a> or <a href="tel:112">112</a>.</p>
+  </aside>
+
+  <div class="prose">{{ article['body']|render_body }}</div>
+
+  {{ source_line(article['source_name'], article['source_url'], article['last_reviewed']) }}
+</article>
+
+<p class="back-link">
+  <a href="{{ url_for('public.health_category', slug=article['category_slug']) }}">Back to {{ article['category'] }}</a>
+  <a href="{{ url_for('public.health_index') }}">All health topics</a>
+</p>
+{% endblock %}

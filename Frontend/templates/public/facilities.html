@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "macros.html" import search_form, place, pager %}
+{% block title %}Healthcare facilities{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Healthcare facilities</h1>
+  <p class="lede">Browse facilities or search by name, town, county or service. Select a facility to see its full details.</p>
+</div>
+
+{{ search_form(url_for('public.facilities'), query=query, label='Search facilities',
+               placeholder='For example: Mombasa, referral, eye care', input_id='fq') }}
+
+{% if error %}
+<p class="notice notice-warn" role="status">{{ error }} Showing all facilities instead.</p>
+{% endif %}
+
+{% if query and facilities %}
+<p class="result-count" role="status" aria-live="polite">Found {{ total }} facilit{{ 'y' if total == 1 else 'ies' }} matching “{{ query }}”.</p>
+{% endif %}
+
+{% if facilities %}
+<ul class="row-list facility-list">
+  {% for f in facilities %}
+  <li>
+    <h2><a href="{{ url_for('public.facility_detail', facility_id=f['id']) }}">{{ f['name'] }}</a></h2>
+    <p class="meta">{{ place(f) }}{% if f['facility_type'] %}<span class="sep">{{ f['facility_type'] }}</span>{% endif %}</p>
+    {% if f['summary'] %}<p>{{ f['summary'] }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{{ pager(page, pages, 'public.facilities', q=query) }}
+{% elif query %}
+<div class="empty" role="status">
+  <p><strong>No facilities match “{{ query }}”.</strong></p>
+  <p>Try a different spelling, a nearby town or county, or <a href="{{ url_for('public.services') }}">browse by service</a>.</p>
+  <p><a href="{{ url_for('public.facilities') }}">Show all facilities</a></p>
+</div>
+{% else %}
+<p class="empty">No facilities have been added yet. Please check back later.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Backup and restore{% endblock %}
+{% block admin_content %}
+<h1>Backup and restore</h1>
+
+<section aria-labelledby="bk-h">
+  <h2 id="bk-h">Download a backup</h2>
+  <p>Downloads a complete copy of the database, including administrator and user accounts. Store it somewhere safe and private.</p>
+  <form method="post" action="{{ url_for('admin.backup_download') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-primary">Download backup</button>
+  </form>
+</section>
+
+<section aria-labelledby="rs-h" class="danger-zone">
+  <h2 id="rs-h">Restore from a backup</h2>
+  <p>Replaces <strong>all</strong> current data with the data in the backup file. Download a backup of the current data first if you might need it.</p>
+  <form method="post" action="{{ url_for('admin.backup_restore') }}" enctype="multipart/form-data" class="stack-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+      <label for="backup_file">Backup file (.sqlite3)</label>
+      <input id="backup_file" name="backup_file" type="file" accept=".sqlite3,.sqlite,.db" required>
+    </div>
+    <label class="check"><input type="checkbox" name="confirm" value="yes" required> I understand this replaces all current data</label>
+    <div class="actions"><button type="submit" class="btn btn-danger">Restore backup</button></div>
+  </form>
+</section>
+{% endblock %}

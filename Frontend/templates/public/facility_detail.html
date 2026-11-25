@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% from "macros.html" import value_or_na, place, source_line %}
+{% block title %}{{ facility['name'] }}{% endblock %}
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('public.facilities') }}">Healthcare facilities</a>
+  <span aria-hidden="true">/</span> <span aria-current="page">{{ facility['name'] }}</span>
+</nav>
+
+<div class="page-head">
+  <h1>{{ facility['name'] }}</h1>
+  {% if facility['summary'] %}<p class="lede">{{ facility['summary'] }}</p>{% endif %}
+</div>
+
+<div class="detail-grid">
+  <section aria-labelledby="loc-h">
+    <h2 id="loc-h">Location</h2>
+    <dl class="facts">
+      <dt>Address</dt><dd>{{ value_or_na(facility['address']) }}</dd>
+      <dt>Town and county</dt><dd>{{ place(facility) }}</dd>
+      <dt>Facility type</dt><dd>{{ value_or_na(facility['facility_type']) }}</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="con-h">
+    <h2 id="con-h">Contact</h2>
+    <dl class="facts">
+      <dt>Phone</dt>
+      <dd>{% if facility['phone'] %}<a href="tel:{{ facility['phone']|replace(' ', '') }}">{{ facility['phone'] }}</a>{% else %}<span class="na">Not available</span>{% endif %}</dd>
+      <dt>Email</dt>
+      <dd>{% if facility['email'] %}<a href="mailto:{{ facility['email'] }}">{{ facility['email'] }}</a>{% else %}<span class="na">Not available</span>{% endif %}</dd>
+      <dt>Website</dt>
+      <dd>{% if facility['website'] %}<a href="{{ facility['website'] }}" rel="noopener noreferrer" target="_blank">{{ facility['website']|replace('https://', '')|replace('http://', '')|trim('/') }}<span class="visually-hidden"> (opens in a new tab)</span></a>{% else %}<span class="na">Not available</span>{% endif %}</dd>
+    </dl>
+  </section>
+</div>
+
+<section aria-labelledby="svc-h">
+  <h2 id="svc-h">Services offered</h2>
+  {% if services %}
+  <ul class="chip-list">
+    {% for s in services %}<li><a href="{{ url_for('public.service_detail', service_id=s['id']) }}">{{ s['name'] }}</a></li>{% endfor %}
+  </ul>
+  {% else %}
+  <p><span class="na">No services have been recorded for this facility.</span></p>
+  {% endif %}
+</section>
+
+<aside class="not-advice">
+  <h2>Before you travel</h2>
+  <p>Details can change. Where a phone number is listed, call ahead to confirm opening hours and that the service you need is available today. Details marked “Not available” have not been confirmed.</p>
+</aside>
+
+{{ source_line(facility['source_name'], facility['source_url'], facility['last_reviewed']) }}
+
+<p class="back-link"><a href="{{ url_for('public.facilities') }}">Back to all facilities</a></p>
+{% endblock %}

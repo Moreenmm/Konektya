@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Administrator login{% endblock %}
+{% block content %}
+<div class="narrow">
+  <div class="page-head">
+    <h1>Administrator login</h1>
+    <p class="lede">For authorised Konektya administrators only. General users do not need an account.</p>
+  </div>
+  {% if error %}<p class="notice notice-error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" class="stack-form" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field">
+      <label for="identifier">Username or email</label>
+      <input id="identifier" name="identifier" type="text" value="{{ identifier }}" autocomplete="username" required autofocus>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+</div>
+{% endblock %}

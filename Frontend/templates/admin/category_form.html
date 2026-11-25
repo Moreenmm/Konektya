@@ -1,0 +1,16 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import field, form_errors %}
+{% block title %}{{ 'Edit' if item else 'Add' }} {{ label|lower }}{% endblock %}
+{% block admin_content %}
+<h1>{{ 'Edit' if item else 'Add' }} {{ label|lower }}</h1>
+{{ form_errors(errors) }}
+<form method="post" class="stack-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {{ field('name', 'Name', form, required=True, maxlength=80) }}
+  {{ field('description', 'Description', form, maxlength=300, textarea=True, rows=3) }}
+  <div class="actions">
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-quiet" href="{{ back }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import delete_button %}
+{% block title %}Manage health information{% endblock %}
+{% block admin_content %}
+<div class="title-row">
+  <h1>Health information</h1>
+  <a class="btn btn-primary" href="{{ url_for('admin.article_form') }}">Add health information</a>
+</div>
+<p>Drafts are only visible to administrators. Preview a draft, then publish it when it is ready.</p>
+
+{% if articles %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Title</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col">Source</th><th scope="col">Updated (UTC)</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+  <tbody>
+  {% for a in articles %}
+  <tr>
+    <td>{{ a['title'] }}</td>
+    <td>{{ a['category'] }}</td>
+    <td><span class="status status-{{ a['status'] }}">{{ a['status']|capitalize }}</span></td>
+    <td>{% if a['source_name'] %}Yes{% else %}<span class="na">Missing</span>{% endif %}</td>
+    <td>{{ a['updated_at'] }}</td>
+    <td class="row-actions">
+      <a href="{{ url_for('admin.article_preview', article_id=a['id']) }}">Preview</a>
+      <a href="{{ url_for('admin.article_form', article_id=a['id']) }}">Edit</a>
+      {{ delete_button(url_for('admin.article_delete', article_id=a['id']), a['title']) }}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="empty">No health information yet. <a href="{{ url_for('admin.article_form') }}">Add the first page</a>.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ category['name'] }}{% endblock %}
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('public.health_index') }}">Health information</a>
+  <span aria-hidden="true">/</span> <span aria-current="page">{{ category['name'] }}</span>
+</nav>
+<div class="page-head">
+  <h1>{{ category['name'] }}</h1>
+  {% if category['description'] %}<p class="lede">{{ category['description'] }}</p>{% endif %}
+</div>
+
+{% if articles %}
+<ul class="row-list">
+  {% for a in articles %}
+  <li>
+    <h2><a href="{{ url_for('public.health_article', cat_slug=category['slug'], slug=a['slug']) }}">{{ a['title'] }}</a></h2>
+    <p>{{ a['summary'] }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">There is no published information in this category yet. Try another topic or use search.</p>
+{% endif %}
+
+<p class="back-link"><a href="{{ url_for('public.health_index') }}">Back to all health topics</a></p>
+{% endblock %}

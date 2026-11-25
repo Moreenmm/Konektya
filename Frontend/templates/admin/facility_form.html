@@ -1,0 +1,54 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import field, form_errors %}
+{% block title %}{{ 'Edit' if facility else 'Add' }} facility{% endblock %}
+{% block admin_content %}
+<h1>{{ 'Edit facility' if facility else 'Add facility' }}</h1>
+<p>Only enter details you have confirmed. Leave a field empty if you do not know it; the public page will show “Not available” instead of guessing.</p>
+{{ form_errors(errors) }}
+
+<form method="post" class="stack-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {{ field('name', 'Facility name', form, required=True, maxlength=150) }}
+  {{ field('facility_type', 'Facility type', form, maxlength=80, hint='For example: County referral hospital (public), Health centre, Private clinic') }}
+  {{ field('summary', 'Summary', form, maxlength=500, textarea=True, rows=3) }}
+
+  <fieldset class="fieldset">
+    <legend>Location</legend>
+    {{ field('address', 'Address or landmark', form, maxlength=250) }}
+    {{ field('town', 'Town', form, maxlength=80) }}
+    {{ field('county', 'County', form, maxlength=60, hint='County name only, for example: Kisumu') }}
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Contact</legend>
+    {{ field('phone', 'Phone number', form, type='tel', maxlength=100) }}
+    {{ field('email', 'Email', form, type='email', maxlength=150) }}
+    {{ field('website', 'Website', form, type='url', maxlength=500, hint='Full address starting with https://') }}
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Services offered</legend>
+    {% if services %}
+    <div class="check-grid">
+      {% for s in services %}
+      <label class="check"><input type="checkbox" name="service_ids" value="{{ s['id'] }}" {% if s['id'] in selected %}checked{% endif %}> {{ s['name'] }}</label>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="field-hint">No services exist yet. <a href="{{ url_for('admin.category_form', kind='service') }}">Add a service</a> first.</p>
+    {% endif %}
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Source</legend>
+    {{ field('source_name', 'Where these details come from', form, maxlength=200) }}
+    {{ field('source_url', 'Source link', form, type='url', maxlength=500) }}
+    {{ field('last_reviewed', 'Last reviewed', form, type='date') }}
+  </fieldset>
+
+  <div class="actions">
+    <button type="submit" class="btn btn-primary">Save facility</button>
+    <a class="btn btn-quiet" href="{{ url_for('admin.facilities') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

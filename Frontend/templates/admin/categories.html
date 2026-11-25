@@ -1,0 +1,34 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import delete_button %}
+{% block title %}{{ 'Health categories' if kind == 'health' else 'Services' }}{% endblock %}
+{% block admin_content %}
+{% set label = 'Health category' if kind == 'health' else 'Service' %}
+<div class="title-row">
+  <h1>{{ 'Health categories' if kind == 'health' else 'Services' }}</h1>
+  <a class="btn btn-primary" href="{{ url_for('admin.category_form', kind=kind) }}">Add {{ label|lower }}</a>
+</div>
+<p>{% if kind == 'health' %}Categories group health information pages. A category can only be deleted once it has no pages.{% else %}Services are linked to facilities so people can find where a service is offered. Deleting a service removes it from every facility.{% endif %}</p>
+
+{% if items %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Name</th><th scope="col">Description</th><th scope="col">{{ 'Pages' if kind == 'health' else 'Facilities' }}</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+  <tbody>
+  {% for i in items %}
+  <tr>
+    <td>{{ i['name'] }}</td>
+    <td>{{ i['description'] or '' }}</td>
+    <td>{{ i['article_count'] if kind == 'health' else i['facility_count'] }}</td>
+    <td class="row-actions">
+      <a href="{{ url_for('admin.category_form', kind=kind, item_id=i['id']) }}">Edit</a>
+      {{ delete_button(url_for('admin.category_delete', kind=kind, item_id=i['id']), i['name']) }}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="empty">Nothing here yet. <a href="{{ url_for('admin.category_form', kind=kind) }}">Add the first {{ label|lower }}</a>.</p>
+{% endif %}
+{% endblock %}

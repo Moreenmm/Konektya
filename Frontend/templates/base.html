@@ -35,20 +35,53 @@
             <nav id="main-nav" class="main-nav" aria-label="Main navigation">
                 <ul>
                     <li><a href="{{ url_for('public.home') }}" {% if ep == 'public.home' %}aria-current="page"{% endif %}>Home</a></li>
-                    <li><a href="#">Health information</a></li>
-                    <li><a href="#">Facilities</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="{{ url_for('public.emergency') }}" {% if ep == 'public.emergency' %}aria-current="page"{% endif %}">Emergency contacts</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="{{ url_for('public.health_index') }}" {% if ep.startswith('public.health') %}aria-current="page"{% endif %}>Health information</a></li>
+                    <li><a href="{{ url_for('public.facilities') }}" {% if ep.startswith('public.facilit') %}aria-current="page"{% endif %}>Facilities</a></li>
+                    <li><a href="{{ url_for('public.services') }}" {% if ep.startswith('public.service') %}aria-current="page"{% endif %}>Services</a></li>
+                    <li><a href="{{ url_for('public.emergency') }}" {% if ep == 'public.emergency' %}aria-current="page"{% endif %}>Emergency contacts</a></li>
+                    <li><a href="{{ url_for('public.search') }}" {% if ep == 'public.search' %}aria-current="page"{% endif %}>Search</a></li>
                 </ul>
             </nav>
-            <a class="btn btn-system header-action" href="#">System</a>
+            {% if ep == 'public.home' %}
+                {% if g.admin or g.user %}
+                <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form header-action">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-system">Log out</button>
+                </form>
+                {% else %}
+                <a class="btn btn-system header-action" href="{{ url_for('accounts.system') }}">System</a>
+                {% endif %}
+            {% endif %}
         </div>
     </header>
+
+    <!-- Shown only to a logged-in administrator -->
+    {% if g.admin %}
+    <div class="admin-strip">
+        <div class="wrap admin-strip-inner">
+            <span>Logged in as <strong>{{ g.admin['username'] }}</strong></span>
+            <a href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+            <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="link-button">Log out</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
 
     <!-- Each page puts its own content here -->
     <main id="main" tabindex="-1">
         <div class="wrap">
+            <!-- Success and error messages after an action -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="flashes" role="status" aria-live="polite">
+                    {% for category, message in messages %}
+                    <p class="flash flash-{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
             {% block content %}{% endblock %}
         </div>
         {% block bands %}{% endblock %}
@@ -65,16 +98,16 @@
                 <nav aria-label="Explore">
                     <h2 class="footer-h">Explore</h2>
                     <ul class="footer-links">
-                        <li><a href="#">Health information</a></li>
-                        <li><a href="#">Healthcare facilities</a></li>
-                        <li><a href="#">Healthcare services</a></li>
-                        <li><a href="#">Search</a></li>
+                        <li><a href="{{ url_for('public.health_index') }}">Health information</a></li>
+                        <li><a href="{{ url_for('public.facilities') }}">Healthcare facilities</a></li>
+                        <li><a href="{{ url_for('public.services') }}">Healthcare services</a></li>
+                        <li><a href="{{ url_for('public.search') }}">Search</a></li>
                     </ul>
                 </nav>
                 <nav aria-label="Help">
                     <h2 class="footer-h">Help</h2>
                     <ul class="footer-links">
-                        <li><a href="#">About and help</a></li>
+                        <li><a href="{{ url_for('public.about') }}">About and help</a></li>
                         <li><a href="{{ url_for('public.emergency') }}">Emergency contacts</a></li>
                     </ul>
                 </nav>

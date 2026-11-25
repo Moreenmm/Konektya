@@ -1,0 +1,31 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import delete_button %}
+{% block title %}Manage emergency contacts{% endblock %}
+{% block admin_content %}
+<div class="title-row">
+  <h1>Emergency contacts</h1>
+  <a class="btn btn-primary" href="{{ url_for('admin.contact_form') }}">Add emergency contact</a>
+</div>
+<p>Verify every number against an official source before adding it. Contacts appear on the public page in display order, lowest first.</p>
+
+{% if contacts %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Order</th><th scope="col">Name</th><th scope="col">Number</th><th scope="col">Verified</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+  <tbody>
+  {% for c in contacts %}
+  <tr>
+    <td>{{ c['display_order'] }}</td><td>{{ c['name'] }}</td><td>{{ c['number'] }}</td><td>{{ c['verified_on'] }}</td>
+    <td class="row-actions">
+      <a href="{{ url_for('admin.contact_form', contact_id=c['id']) }}">Edit</a>
+      {{ delete_button(url_for('admin.contact_delete', contact_id=c['id']), c['name']) }}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="empty">No emergency contacts yet. <a href="{{ url_for('admin.contact_form') }}">Add the first contact</a>.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "macros.html" import place %}
+{% block title %}{{ service['name'] }}{% endblock %}
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ url_for('public.services') }}">Healthcare services</a>
+  <span aria-hidden="true">/</span> <span aria-current="page">{{ service['name'] }}</span>
+</nav>
+<div class="page-head">
+  <h1>{{ service['name'] }}</h1>
+  {% if service['description'] %}<p class="lede">{{ service['description'] }}</p>{% endif %}
+</div>
+
+<h2>Facilities that list this service</h2>
+{% if facilities %}
+<ul class="row-list">
+  {% for f in facilities %}
+  <li>
+    <h3><a href="{{ url_for('public.facility_detail', facility_id=f['id']) }}">{{ f['name'] }}</a></h3>
+    <p class="meta">{{ place(f) }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">No facilities in Konektya list this service yet. Try <a href="{{ url_for('public.facilities') }}">searching all facilities</a>.</p>
+{% endif %}
+
+<p class="back-link"><a href="{{ url_for('public.services') }}">Back to all services</a></p>
+{% endblock %}

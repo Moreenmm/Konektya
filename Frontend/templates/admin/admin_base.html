@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body_class %}page-admin{% endblock %}
+{% block content %}
+{% set ep = request.endpoint or '' %}
+<div class="admin-layout">
+  <nav class="admin-nav" aria-label="Administrator">
+    <ul>
+      <li><a href="{{ url_for('admin.dashboard') }}" {% if ep == 'admin.dashboard' %}aria-current="page"{% endif %}>Dashboard</a></li>
+      <li><a href="{{ url_for('admin.articles') }}" {% if ep.startswith('admin.article') %}aria-current="page"{% endif %}>Health information</a></li>
+      <li><a href="{{ url_for('admin.health_categories') }}" {% if ep == 'admin.health_categories' or (kind is defined and kind == 'health') %}aria-current="page"{% endif %}>Health categories</a></li>
+      <li><a href="{{ url_for('admin.facilities') }}" {% if ep.startswith('admin.facilit') %}aria-current="page"{% endif %}>Facilities</a></li>
+      <li><a href="{{ url_for('admin.services') }}" {% if ep == 'admin.services' or (kind is defined and kind == 'service') %}aria-current="page"{% endif %}>Services</a></li>
+      <li><a href="{{ url_for('admin.contacts') }}" {% if ep.startswith('admin.contact') %}aria-current="page"{% endif %}>Emergency contacts</a></li>
+      <li><a href="{{ url_for('admin.audit') }}" {% if ep == 'admin.audit' %}aria-current="page"{% endif %}>Activity log</a></li>
+      <li><a href="{{ url_for('admin.backup') }}" {% if ep == 'admin.backup' %}aria-current="page"{% endif %}>Backup and restore</a></li>
+      <li><a href="{{ url_for('admin.guide') }}" {% if ep == 'admin.guide' %}aria-current="page"{% endif %}>Administrator guide</a></li>
+    </ul>
+  </nav>
+  <div class="admin-main">
+    {% block admin_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

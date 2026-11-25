@@ -1,0 +1,26 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import field, form_errors %}
+{% block title %}{{ 'Edit' if contact else 'Add' }} emergency contact{% endblock %}
+{% block admin_content %}
+<h1>{{ 'Edit emergency contact' if contact else 'Add emergency contact' }}</h1>
+{{ form_errors(errors) }}
+<form method="post" class="stack-form" novalidate>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {{ field('name', 'Name', form, required=True, maxlength=120, hint='For example: Kenya Red Cross') }}
+  {{ field('number', 'Number', form, type='tel', required=True, maxlength=100) }}
+  {{ field('purpose', 'What this number is for', form, required=True, maxlength=300, textarea=True, rows=2) }}
+  {{ field('availability', 'Availability', form, maxlength=100, hint='For example: 24 hours') }}
+  <fieldset class="fieldset">
+    <legend>Verification</legend>
+    <p class="field-hint">Emergency contacts must be verified against an official source before they are published.</p>
+    {{ field('source_name', 'Source', form, required=True, maxlength=200) }}
+    {{ field('source_url', 'Source link', form, type='url', maxlength=500) }}
+    {{ field('verified_on', 'Date verified', form, type='date', required=True) }}
+  </fieldset>
+  {{ field('display_order', 'Display order', form, type='number', maxlength=4, hint='Lower numbers appear first.') }}
+  <div class="actions">
+    <button type="submit" class="btn btn-primary">Save contact</button>
+    <a class="btn btn-quiet" href="{{ url_for('admin.contacts') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}
