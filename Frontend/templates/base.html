@@ -19,7 +19,7 @@
             <a class="sos-num" href="tel:999">999</a>
             <span>or</span>
             <a class="sos-num" href="tel:112">112</a>
-            <a class="sos-more" href="#">All emergency contacts</a>
+            <a class="sos-more" href="{{ url_for('public.emergency') }}">All emergency contacts</a>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
                     <li><a href="#">Health information</a></li>
                     <li><a href="#">Facilities</a></li>
                     <li><a href="#">Services</a></li>
-                    <li><a href="#">Emergency contacts</a></li>
+                    <li><a href="{{ url_for('public.emergency') }}" {% if ep == 'public.emergency' %}aria-current="page"{% endif %}">Emergency contacts</a></li>
                     <li><a href="#">Search</a></li>
                 </ul>
             </nav>
@@ -75,7 +75,7 @@
                     <h2 class="footer-h">Help</h2>
                     <ul class="footer-links">
                         <li><a href="#">About and help</a></li>
-                        <li><a href="#">Emergency contacts</a></li>
+                        <li><a href="{{ url_for('public.emergency') }}">Emergency contacts</a></li>
                     </ul>
                 </nav>
                 <div>

@@ -253,3 +253,23 @@ input:hover, select:hover, textarea:hover { border-color: #8f8f8f; }
 @media print {
   .sos-bar, .site-header nav, .site-footer, .search-form, .header-action { display: none; }
 }
+
+/* Page heading (every page except home) */
+.page-head { margin-bottom: 2.25rem; max-width: var(--measure); }
+.page-head h1 { letter-spacing: -0.04em; }
+
+/* "Nothing here yet" box */
+.empty { padding: 1.25rem; background: var(--surface); border: 1px dashed #cfcfcf; border-radius: var(--radius); max-width: 52rem; }
+.empty p:last-child { margin-bottom: 0; }
+
+/* Emergency contacts page */
+.contact-list { list-style: none; padding: 0; margin: 0; max-width: 52rem; display: grid; gap: .75rem; }
+.contact { display: grid; grid-template-columns: 8.5rem 1fr; gap: .5rem 1.5rem; padding: 1.5rem; border: 1px solid var(--line); border-left: 4px solid var(--sos); border-radius: var(--radius); align-items: start; }
+.contact-number {
+  font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--sos); text-decoration: none;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+}
+.contact-number:hover { color: var(--sos-dark); text-decoration: underline; }
+.contact-body h2 { margin: 0 0 .25rem; font-size: 1.15rem; }
+.contact-body p { margin-bottom: .35rem; }
+@media (max-width: 30rem) { .contact { grid-template-columns: 1fr; } }

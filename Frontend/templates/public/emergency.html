@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Emergency contacts{% endblock %}
+{% block body_class %}page-emergency{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Emergency contacts</h1>
+  <p class="lede">If someone's life is in danger, call <a href="tel:999">999</a> or <a href="tel:112">112</a> now. On a phone, tap a number to call it.</p>
+</div>
+
+{% if contacts %}
+<ul class="contact-list">
+  {% for c in contacts %}
+  <li class="contact">
+    <a class="contact-number" href="tel:{{ c['number']|replace(' ', '') }}" aria-label="Call {{ c['name'] }} on {{ c['number'] }}">{{ c['number'] }}</a>
+    <div class="contact-body">
+      <h2>{{ c['name'] }}</h2>
+      <p>{{ c['purpose'] }}</p>
+      <p class="meta">
+        {% if c['availability'] %}Available: {{ c['availability'] }}<br>{% endif %}
+        Verified {{ c['verified_on']|nice_date }} against
+        {% if c['source_url'] %}<a href="{{ c['source_url'] }}" rel="noopener noreferrer" target="_blank">{{ c['source_name'] }}<span class="visually-hidden"> (opens in a new tab)</span></a>{% else %}{{ c['source_name'] }}{% endif %}
+      </p>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">Emergency contacts have not been added yet. In an emergency, call 999 or 112.</p>
+{% endif %}
+{% endblock %}
