@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Health information{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Health information</h1>
+  <p class="lede">Choose a topic to read general health information. Every page lists the source it is based on.</p>
+</div>
+
+{% if categories %}
+<ul class="row-list">
+  {% for c in categories %}
+  <li>
+    <h2><a href="{{ url_for('public.health_category', slug=c['slug']) }}">{{ c['name'] }}</a></h2>
+    {% if c['description'] %}<p>{{ c['description'] }}</p>{% endif %}
+    <p class="meta">{{ c['article_count'] }} page{{ '' if c['article_count'] == 1 else 's' }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">No health information has been published yet. Please check back later.</p>
+{% endif %}
+{% endblock %}
